@@ -18,7 +18,7 @@ class HogeController extends AbstractController
     {
 
         return $this->render('hoge/index.html.twig', [
-            'controller_name' => 'HogeController', 'repo' => $todoRepo->findByExampleField()
+            'controller_name' => 'HogeController', 'repo' => $todoRepo->findAll()
         ]);
     }
     #[Route('/create', name: 'create_task', methods: "POST")]

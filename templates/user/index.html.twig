@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<form method="POST" action="{{ path('app_user_create') }}">
+			<div><input type="text" id="myInput" placeholder="your name is..." name="title" value="{{currentName}}"/></div>
+			<div>
+				{% if app.flashes('success') %}
+					<div style="color:red;">性別を入力してください。</div>
+				{% endif %}
+				<input type="radio" id="dewey" name="gender" value="Man">
+				<label for="dewey">Man</label>
+				<input type="radio" id="dewey" name="gender" value="Woman">
+				<label for="dewey">Woman</label>
+			</div>
+			<div>
+				<select name="age">
+					{% for i in 0..100 %}
+						<option value='{{i}}'>{{i}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<button type="submit" class="addBtn">Apply</button>
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>Gender</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in repo %}
+					<tr>
+						<td>{{i.name}}</td>
+						<td>{{i.age}}</td>
+						<td>{{i.gender}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+
+	</div>
+{% endblock %}
