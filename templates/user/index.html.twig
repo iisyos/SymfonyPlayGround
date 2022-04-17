@@ -19,9 +19,9 @@
 
 	<div class="example-wrapper">
 		<form method="POST" action="{{ path('app_user_create') }}">
-			<div><input type="text" id="myInput" placeholder="your name is..." name="title" value="{{currentName}}"/></div>
+			<div><input type="text" id="myInput" placeholder="your name is..." name="title" value="{{app.session.flashbag.peek('name') is empty?'':app.flashes('name')[0]}}"/></div>
 			<div>
-				{% if app.flashes('success') %}
+				{% if app.flashes('name') %}
 					<div style="color:red;">性別を入力してください。</div>
 				{% endif %}
 				<input type="radio" id="dewey" name="gender" value="Man">
@@ -41,6 +41,7 @@
 		<table>
 			<thead>
 				<tr>
+					<th>ID</th>
 					<th>Name</th>
 					<th>Age</th>
 					<th>Gender</th>
@@ -49,6 +50,7 @@
 			<tbody>
 				{% for i in repo %}
 					<tr>
+						<td>{{i.id}}</td>
 						<td>{{i.name}}</td>
 						<td>{{i.age}}</td>
 						<td>{{i.gender}}</td>

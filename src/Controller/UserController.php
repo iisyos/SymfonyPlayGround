@@ -9,15 +9,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(Request $req, UserRepository $userRepo): Response
+    public function index(Request $req, UserRepository $userRepo, SessionInterface $session): Response
     {
         return $this->render('user/index.html.twig', [
             'repo' => $userRepo->findAll(),
-            'currentName' => $req->get('name')
+            'currentName' => $session->get('name')
         ]);
     }
     #[Route('/user/create', name: 'app_user_create')]
@@ -28,8 +29,8 @@ class UserController extends AbstractController
         $gender = $req->request->get('gender');
 
         if ($gender === null) {
-            $this->addFlash('success', 'Article Created! Knowledge is power!');
-            $a = $this->generateUrl('app_user', ['name' => $name]);
+            $this->addFlash('name', $name);
+            $a = $this->generateUrl('app_user');
             return $this->redirect($a);
         }
 
