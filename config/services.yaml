@@ -4,6 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    facebook:
+        appId: '%env(FACEBOOK_APP_ID)%'
+        appSecret: '%env(FACEBOOK_APP_SECRET)%'
 
 services:
     # default configuration for services in *this* file
@@ -19,6 +22,8 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    Facebook\Facebook:
+        arguments:
+            - app_id: '%env(FACEBOOK_APP_ID)%'
+              app_secret: '%env(FACEBOOK_APP_SECRET)%'
+              default_graph_version: v3.2 
